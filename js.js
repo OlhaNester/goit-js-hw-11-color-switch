@@ -18,23 +18,23 @@ const refs = {
 };
 
 const positionBtnStart = false;
+let intervalId = null;
 
 const startChangeColor = function () {
-  if (positionBtnStart) {
+  if (!(intervalId === null)) {
     return;
-  } else positionBtnStart = true;
-  setInterval(changecolorBody, 1000);
+  }
+  intervalId = setInterval(changecolorBody, 1000);
 };
 
 const stopChangeColor = function () {
-  clearInterval();
+  clearInterval(intervalId);
+  intervalId = null;
 };
 
 const changecolorBody = function () {
-  refs.body.style.backgroundColor = randomIntegerFromInterval(
-    0,
-    colors.length - 1
-  );
+  refs.body.style.backgroundColor =
+    colors[randomIntegerFromInterval(0, colors.length - 1)];
 };
 
 refs.start.addEventListener("click", startChangeColor);
